@@ -8,20 +8,23 @@ import java.util.Map;
  * Created by ioana-chirca on 16-May-17.
  */
 public class StringPermutation {
-    public boolean isPermutation(String first, String second) {
+    public static boolean isPermutation(String first, String second) {
         boolean isValid = validateInput(first, second);
         if (!isValid) return false;
 
         // in order for two strings to be permutations, they have to have the same characters
+        // case-insensitive
+        String firstLowercase = first.toLowerCase();
+        String secondLowercase = second.toLowerCase();
         HashMap<Character, Integer> frequencies = new HashMap<>();
-        for (Character c : first.toCharArray()) {
+        for (Character c : firstLowercase.toCharArray()) {
             if (!frequencies.containsKey(c)) {
                 frequencies.put(c, 1);
             } else {
                 frequencies.put(c, frequencies.get(c) + 1);
             }
         }
-        for (Character c : second.toCharArray()) {
+        for (Character c : secondLowercase.toCharArray()) {
             if (!frequencies.containsKey(c)) {
                 frequencies.put(c, -1);
             } else {
@@ -40,7 +43,7 @@ public class StringPermutation {
         return ok;
     }
 
-    private boolean validateInput(String first, String second) {
+    private static boolean validateInput(String first, String second) {
         if (first == null || second == null) {
             return false;
         }
@@ -51,7 +54,6 @@ public class StringPermutation {
     }
 
     public static void main(String[] args) {
-        StringPermutation permutation = new StringPermutation();
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
         String first = null;
         String second = null;
@@ -63,7 +65,7 @@ public class StringPermutation {
             e.printStackTrace();
         }
 
-        System.out.println(permutation.isPermutation(first, second));
+        System.out.println(isPermutation(first, second));
     }
 
 }

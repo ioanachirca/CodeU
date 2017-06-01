@@ -30,6 +30,7 @@ public class LinkedList {
     }
 
     private Node head;
+    private Node last;
     private int size;
 
     public LinkedList() {
@@ -42,16 +43,13 @@ public class LinkedList {
     public void addLast(int value) {
         if (head == null) {
             head = new Node(value);
-            size++;
+            last = head;
         } else {
-            Node current = head;
-            while (current.getNext() != null) {
-                current = current.getNext();
-            }
-            Node node = new Node(value);
-            current.setNext(node);
-            size++;
+            Node current = new Node(value);
+            last.setNext(current);
+            last = current;
         }
+        size++;
     }
 
     public void printList() {
@@ -87,7 +85,10 @@ public class LinkedList {
         }
         list.printList();
 
-        for (int i = -1; i < list.getSize() + 3; i++) {
+        // this loop tests different k's
+        // the expected output is MIN 9 8 7 6 5 4 3 2 1 0 MIN
+        // MIN is printed when k exceeds the list length or is negative
+        for (int i = -1; i < list.getSize() + 1; i++) {
             System.out.println(i + " -> " + list.getKthToLast(i));
         }
     }
