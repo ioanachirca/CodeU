@@ -11,15 +11,10 @@ public class BinaryTree<T> {
         public Node() {}
         public Node(T value) {
             this.value = value;
-            this.left = null;
-            this.right = null;
-            this.parent = null;
         }
 
         public Node(T value, Node parent) {
             this.value = value;
-            this.left = null;
-            this.right = null;
             this.parent = parent;
         }
 
@@ -95,6 +90,7 @@ public class BinaryTree<T> {
     public void insertChild(T parentValue, T value, boolean toLeft) {
         // adds value as a left/right child to parent
         // we assume that the keys are unique
+        // if the node already has a child in that position, no changes are made
 
         Node parent = search(parentValue, root);
 

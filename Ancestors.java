@@ -5,18 +5,18 @@ import java.util.ArrayList;
  */
 public class Ancestors<T> {
     public ArrayList<T> printAncestors(BinaryTree<T> tree, T key) {
-        ArrayList<T> ancs = new ArrayList<>();
-        ancestors(tree.getRoot(), key, ancs);
+        ArrayList<T> ancestors = new ArrayList<>();
+        buildAncestorsList(tree.getRoot(), key, ancestors);
 
         return ancs;
     }
 
-    private boolean ancestors(BinaryTree.Node current, T key, ArrayList<T> ancs) {
+    private boolean buildAncestorsList(BinaryTree.Node current, T key, ArrayList<T> ancestors) {
 
         if (current == null) return false;
         if (current.getValue() == key) return true;
 
-        if (ancestors(current.getLeft(), key, ancs) || ancestors(current.getRight(), key, ancs)) {
+        if (buildAncestorsList(current.getLeft(), key, ancestors) || buildAncestorsList(current.getRight(), key, ancestors)) {
             System.out.println(current.getValue());
             ancs.add((T)current.getValue());
             return true;
