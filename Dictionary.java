@@ -16,15 +16,15 @@ public class Dictionary {
     public Dictionary(String[] words) {
         this();
         for (String word : words) {
-            addWord(new StringBuilder(word));
+            addWord(word);
         }
     }
 
-    public void addWord(StringBuilder word) {
+    private void addWord(String word) {
         for (int i = 0; i < word.length(); i++) {
             prefixes.add(word.substring(0, i+1));
         }
-        words.add(word.toString());
+        words.add(word);
     }
 
     public boolean isWord(String word) {
