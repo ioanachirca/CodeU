@@ -1,6 +1,8 @@
 import org.junit.Assert;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 /**
  * Created by ioana-chirca on 21-Jul-17.
@@ -88,6 +90,32 @@ public class RearrangingCarsTest {
         ArrayList<Move> moves = RearrangingCars.rearrange(originalOrder, finalOrder);
 
         Assert.assertNull(moves);
+    }
+
+    @org.junit.Test
+    public void testOptimisedRearrange() {
+        for (int size = 5; size < 50; size++) {
+            int[] originalOrder = IntStream.rangeClosed(0, size - 1).toArray();
+            int[] finalOrder = originalOrder.clone();
+            shuffleArray(finalOrder);
+
+            ArrayList<Move> moves = RearrangingCars.rearrange(originalOrder, finalOrder);
+            ArrayList<Move> optimisedMoves = RearrangingCars.optimisedRearrange(originalOrder, finalOrder);
+
+            System.out.println("Normal: " + moves.size() + "  Optimised: " + optimisedMoves.size());
+            Assert.assertTrue(optimisedMoves.size() <= moves.size());
+        }
+    }
+
+    private static void shuffleArray(int[] array) {
+        int index;
+        Random random = new Random();
+        for (int i = 0; i < array.length; i++) {
+            index = random.nextInt(i + 1);
+            int temp = array[index];
+            array[index] = array[i];
+            array[i] = temp;
+        }
     }
 
 
