@@ -60,7 +60,6 @@ public class RearrangingCars {
             return null;
 
         // Idea: Repeatedly replace current empty spot with the car that has to go there
-
         ArrayList<Move> moves = new ArrayList<>();
         if (originalOrder.length == 0) return moves;
 

@@ -93,7 +93,42 @@ public class RearrangingCarsTest {
     }
 
     @org.junit.Test
-    public void testOptimisedRearrange() {
+    public void testOptimisedRearrangeSmall() {
+        int[] originalOrder = {1, 2, 0, 3};
+        int[] finalOrder = {3, 1, 2, 0};
+
+        ArrayList<Move> moves = RearrangingCars.optimisedRearrange(originalOrder, finalOrder);
+
+        Move[] result = new Move[moves.size()];
+        for (int i = 0; i < moves.size(); i++) {
+            result[i] = moves.get(i);
+        }
+
+        Move[] expectedResult = {new Move(1, 2), new Move(0, 1), new Move(3, 0)};
+
+        Assert.assertArrayEquals(expectedResult, result);
+    }
+
+    @org.junit.Test
+    public void testOptimisedRearrangeBigger() {
+        int[] originalOrder = {1, 5, 0, 6, 2, 3, 4};
+        int[] finalOrder = {1, 2, 3, 0, 4, 5, 6};
+
+        ArrayList<Move> moves = RearrangingCars.optimisedRearrange(originalOrder, finalOrder);
+
+        Move[] result = new Move[moves.size()];
+        for (int i = 0; i < moves.size(); i++) {
+            result[i] = moves.get(i);
+        }
+
+        Move[] expectedResult = {new Move(5, 2), new Move(1, 5), new Move(4, 1),
+                                new Move(6, 4), new Move(3, 6)};
+
+        Assert.assertArrayEquals(expectedResult, result);
+    }
+
+    @org.junit.Test
+    public void testOptimisedRearrangePerformance() {
         for (int size = 5; size < 50; size++) {
             int[] originalOrder = IntStream.rangeClosed(0, size - 1).toArray();
             int[] finalOrder = originalOrder.clone();
@@ -102,7 +137,7 @@ public class RearrangingCarsTest {
             ArrayList<Move> moves = RearrangingCars.rearrange(originalOrder, finalOrder);
             ArrayList<Move> optimisedMoves = RearrangingCars.optimisedRearrange(originalOrder, finalOrder);
 
-            System.out.println("Normal: " + moves.size() + "  Optimised: " + optimisedMoves.size());
+            System.out.println("Input size: " + size + "  Normal: " + moves.size() + "  Optimised: " + optimisedMoves.size());
             Assert.assertTrue(optimisedMoves.size() <= moves.size());
         }
     }
@@ -117,7 +152,5 @@ public class RearrangingCarsTest {
             array[i] = temp;
         }
     }
-
-
 
 }
